@@ -28,8 +28,8 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         final boolean edit = isInEditMode();
         if (savedInstanceState == null) {
-        //    getSupportFragmentManager().beginTransaction()
-        //            .replace(R.id.sign_in_container, SignInFragment.newInstance(edit)).commit();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.sign_in_container, SignInFragment.newInstance(edit)).commit();
         }
     }
 
