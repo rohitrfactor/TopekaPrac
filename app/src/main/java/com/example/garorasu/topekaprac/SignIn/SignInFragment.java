@@ -1,20 +1,14 @@
-package com.example.garorasu.topekaprac.activity;
+package com.example.garorasu.topekaprac.SignIn;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.transition.Transition;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +24,10 @@ public class SignInFragment extends Fragment {
 
     private static final String ARG_EDIT = "EDIT";
     private static final String KEY_SELECTED_AVATAR_INDEX = "selectedAvatarIndex";
-    //private Player mPlayer;
+    private Player mPlayer;
     private EditText mFirstName;
     private EditText mLastInitial;
-//    private Avatar mSelectedAvatar;
+    private Avatar mSelectedAvatar;
     private View mSelectedAvatarView;
     private GridView mAvatarGrid;
     private FloatingActionButton mDoneFab;
@@ -52,7 +46,7 @@ public class SignInFragment extends Fragment {
         if (savedInstanceState != null) {
             final int savedAvatarIndex = savedInstanceState.getInt(KEY_SELECTED_AVATAR_INDEX);
             if (savedAvatarIndex != GridView.INVALID_POSITION) {
-    //            mSelectedAvatar = Avatar.values()[savedAvatarIndex];
+                mSelectedAvatar = Avatar.values()[savedAvatarIndex];
             }
         }
         super.onCreate(savedInstanceState);
@@ -67,7 +61,7 @@ public class SignInFragment extends Fragment {
             public void onLayoutChange(View v, int left, int top, int right, int bottom,
                                        int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 v.removeOnLayoutChangeListener(this);
-    //            setUpGridView(getView());
+                setUpGridView(getView());
             }
         });
         return contentView;
@@ -141,7 +135,7 @@ public class SignInFragment extends Fragment {
         mLastInitial = (EditText) view.findViewById(R.id.last_initial);
         mLastInitial.addTextChangedListener(textWatcher);
         mDoneFab = (FloatingActionButton) view.findViewById(R.id.done);
-    /*    mDoneFab.setOnClickListener(new View.OnClickListener() {
+        mDoneFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
@@ -151,10 +145,10 @@ public class SignInFragment extends Fragment {
                             @Override
                             public void run() {
                                 if (null == mSelectedAvatarView) {
-                                    performSignInWithTransition(mAvatarGrid.getChildAt(
-                                            mSelectedAvatar.ordinal()));
+       //                             performSignInWithTransition(mAvatarGrid.getChildAt(
+       //                                     mSelectedAvatar.ordinal()));
                                 } else {
-                                    performSignInWithTransition(mSelectedAvatarView);
+      //                              performSignInWithTransition(mSelectedAvatarView);
                                 }
                             }
                         });
@@ -166,8 +160,6 @@ public class SignInFragment extends Fragment {
                 }
             }
         });
-
-        */
     }
 
     private void removeDoneFab(@Nullable Runnable endAction) {
@@ -178,7 +170,7 @@ public class SignInFragment extends Fragment {
                 .withEndAction(endAction)
                 .start();
     }
-/*
+
     private void setUpGridView(View container) {
         mAvatarGrid = (GridView) container.findViewById(R.id.avatars);
         mAvatarGrid.setAdapter(new AvatarAdapter(getActivity()));
@@ -198,12 +190,12 @@ public class SignInFragment extends Fragment {
             mAvatarGrid.setItemChecked(mSelectedAvatar.ordinal(), true);
         }
     }
-
+    /*
     private void performSignInWithTransition(View v) {
         final Activity activity = getActivity();
         if (v == null || ApiLevelHelper.isLowerThan(Build.VERSION_CODES.LOLLIPOP)) {
             // Don't run a transition if the passed view is null
-     //       CategorySelectionActivity.start(activity, mPlayer);
+            CategorySelectionActivity.start(activity, mPlayer);
             activity.finish();
             return;
         }
@@ -217,39 +209,40 @@ public class SignInFragment extends Fragment {
                         }
                     });
 
-     //       final Pair[] pairs = TransitionHelper.createSafeTransitionParticipants(activity, true,
-     //               new Pair<>(v, activity.getString(R.string.transition_avatar)));
-     //       @SuppressWarnings("unchecked")
-     //       ActivityOptionsCompat activityOptions = ActivityOptionsCompat
-     //               .makeSceneTransitionAnimation(activity, pairs);
-     //       CategorySelectionActivity.start(activity, mPlayer, activityOptions);
+            final Pair[] pairs = TransitionHelper.createSafeTransitionParticipants(activity, true,
+                    new Pair<>(v, activity.getString(R.string.transition_avatar)));
+            @SuppressWarnings("unchecked")
+            ActivityOptionsCompat activityOptions = ActivityOptionsCompat
+                    .makeSceneTransitionAnimation(activity, pairs);
+            CategorySelectionActivity.start(activity, mPlayer, activityOptions);
         }
     }
-*/
+    */
+
     private void initContents() {
         assurePlayerInit();
-     //   if (mPlayer != null) {
-     //       mFirstName.setText(mPlayer.getFirstName());
-     //       mLastInitial.setText(mPlayer.getLastInitial());
-     //       mSelectedAvatar = mPlayer.getAvatar();
-     //   }
+        if (mPlayer != null) {
+            mFirstName.setText(mPlayer.getFirstName());
+            mLastInitial.setText(mPlayer.getLastInitial());
+            mSelectedAvatar = mPlayer.getAvatar();
+        }
     }
 
     private void assurePlayerInit() {
-     //   if (mPlayer == null) {
-     //       mPlayer = PreferencesHelper.getPlayer(getActivity());
-     //   }
+        if (mPlayer == null) {
+            mPlayer = PreferencesHelper.getPlayer(getActivity());
+        }
     }
 
     private void savePlayer(Activity activity) {
-     //   mPlayer = new Player(mFirstName.getText().toString(), mLastInitial.getText().toString(),
-     //           mSelectedAvatar);
-     //   PreferencesHelper.writeToPreferences(activity, mPlayer);
+        mPlayer = new Player(mFirstName.getText().toString(), mLastInitial.getText().toString(),
+                mSelectedAvatar);
+        PreferencesHelper.writeToPreferences(activity, mPlayer);
     }
 
-  //  private boolean isAvatarSelected() {
-  //      return mSelectedAvatarView != null || mSelectedAvatar != null;
- //    }
+    private boolean isAvatarSelected() {
+        return mSelectedAvatarView != null || mSelectedAvatar != null;
+     }
 
     private boolean isInputDataValid() {
         return !TextUtils.isEmpty(mFirstName.getText()) && !TextUtils.isEmpty(mLastInitial.getText());

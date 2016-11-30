@@ -1,4 +1,4 @@
-package com.example.garorasu.topekaprac.activity;
+package com.example.garorasu.topekaprac.SignIn;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -36,7 +36,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        //if (PreferencesHelper.isSignedIn(this)) { finish(); }
+        if (PreferencesHelper.isSignedIn(this)) { finish(); }
     }
 
     private boolean isInEditMode() {
