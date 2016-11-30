@@ -245,8 +245,7 @@ public class SignInFragment extends Fragment {
      }
 
     private boolean isInputDataValid() {
-        return !TextUtils.isEmpty(mFirstName.getText()) && !TextUtils.isEmpty(mLastInitial.getText());
-        //return PreferencesHelper.isInputDataValid(mFirstName.getText(), mLastInitial.getText());
+        return PreferencesHelper.isInputDataValid(mFirstName.getText(), mLastInitial.getText());
     }
 
     /**
