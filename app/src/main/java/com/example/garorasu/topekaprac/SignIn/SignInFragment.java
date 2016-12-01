@@ -130,10 +130,9 @@ public class SignInFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 // showing the floating action button if avatar is selected and input data is valid
-                //if (isAvatarSelected() && isInputDataValid()) {
-                  if(isInputDataValid()){
+                if (isAvatarSelected() && isInputDataValid()) {
                     mDoneFab.show();
-                    }
+                }
             }
         };
 
