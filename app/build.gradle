@@ -3,6 +3,10 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
+
+    dataBinding {
+        enabled = true
+    }
     defaultConfig {
         applicationId "com.example.garorasu.topekaprac"
         minSdkVersion 21
@@ -26,6 +30,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:support-v4:25.0.1'
-    compile "com.android.support:design:25.0.1"
+    compile 'com.android.support:design:25.0.1'
     testCompile 'junit:junit:4.12'
 }
