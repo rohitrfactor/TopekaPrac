@@ -1,14 +1,17 @@
 package com.example.garorasu.topekaprac.SignIn;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.transition.Transition;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,10 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.support.design.widget.FloatingActionButton;
 
+import com.example.garorasu.topekaprac.ApiLevelHelper;
+import com.example.garorasu.topekaprac.CategorySelection.CategorySelectionActivity;
+import com.example.garorasu.topekaprac.CategorySelection.TransitionHelper;
+import com.example.garorasu.topekaprac.CategorySelection.TransitionListenerAdapter;
 import com.example.garorasu.topekaprac.R;
 
 
@@ -82,16 +89,16 @@ public class SignInFragment extends Fragment {
         assurePlayerInit();
         checkIsInEditMode();
 
-     //   if (mPlayer == null || edit) {
+        if (mPlayer == null || edit) {
             view.findViewById(R.id.empty).setVisibility(View.GONE);
             view.findViewById(R.id.content).setVisibility(View.VISIBLE);
             initContentViews(view);
-           initContents();
-    //    } else {
-     //       final Activity activity = getActivity();
-     //       CategorySelectionActivity.start(activity, mPlayer);
-     //       activity.finish();
-     //   }
+            initContents();
+        } else {
+            final Activity activity = getActivity();
+            CategorySelectionActivity.start(activity, mPlayer);
+            activity.finish();
+        }
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -145,10 +152,10 @@ public class SignInFragment extends Fragment {
                             @Override
                             public void run() {
                                 if (null == mSelectedAvatarView) {
-       //                             performSignInWithTransition(mAvatarGrid.getChildAt(
-       //                                     mSelectedAvatar.ordinal()));
+                                    performSignInWithTransition(mAvatarGrid.getChildAt(
+                                            mSelectedAvatar.ordinal()));
                                 } else {
-      //                              performSignInWithTransition(mSelectedAvatarView);
+                                    performSignInWithTransition(mSelectedAvatarView);
                                 }
                             }
                         });
@@ -190,7 +197,7 @@ public class SignInFragment extends Fragment {
             mAvatarGrid.setItemChecked(mSelectedAvatar.ordinal(), true);
         }
     }
-    /*
+
     private void performSignInWithTransition(View v) {
         final Activity activity = getActivity();
         if (v == null || ApiLevelHelper.isLowerThan(Build.VERSION_CODES.LOLLIPOP)) {
@@ -217,7 +224,7 @@ public class SignInFragment extends Fragment {
             CategorySelectionActivity.start(activity, mPlayer, activityOptions);
         }
     }
-    */
+
 
     private void initContents() {
         assurePlayerInit();
