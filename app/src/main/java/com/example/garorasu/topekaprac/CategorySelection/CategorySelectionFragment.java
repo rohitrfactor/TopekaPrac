@@ -17,6 +17,7 @@ import android.view.ViewTreeObserver;
 
 import com.example.garorasu.topekaprac.OffsetDecoration;
 import com.example.garorasu.topekaprac.Quiz.JsonAttributes;
+import com.example.garorasu.topekaprac.Quiz.QuizActivity;
 import com.example.garorasu.topekaprac.R;
 
 public class CategorySelectionFragment extends Fragment {
@@ -85,12 +86,12 @@ public class CategorySelectionFragment extends Fragment {
                 .makeSceneTransitionAnimation(activity, pairs);
 
         // Start the activity with the participants, animating from one to the other.
-      //  final Bundle transitionBundle = sceneTransitionAnimation.toBundle();
-      //  Intent startIntent = QuizActivity.getStartIntent(activity, category);
-      //  ActivityCompat.startActivityForResult(activity,
-      //          startIntent,
-      //          REQUEST_CATEGORY,
-      //          transitionBundle);
+        final Bundle transitionBundle = sceneTransitionAnimation.toBundle();
+        Intent startIntent = QuizActivity.getStartIntent(activity, category);
+        ActivityCompat.startActivityForResult(activity,
+                startIntent,
+                REQUEST_CATEGORY,
+                transitionBundle);
     }
 
 }

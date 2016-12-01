@@ -151,7 +151,7 @@ public class TopekaDatabaseHelper extends SQLiteOpenHelper {
      * @param context The context this is running in.
      * @return The score over all Categories.
      */
-    public static int getScore(Context context) {
+     public static int getScore(Context context) {
         final List<Category> categories = getCategories(context, false);
         int score = 0;
         for (Category cat : categories) {
